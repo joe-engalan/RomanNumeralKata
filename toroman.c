@@ -3,11 +3,16 @@
 */
 #include <stdio.h>
 
+static const char* ones[] = { "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+
+int extractDigit(int number, int place)
+{
+  return number % (10 * place);
+}
+
 int toRoman(char* numeral, int number)
 {
-  if(number == 5)
-  {
-    sprintf(numeral, "V");
-  }
-  return 0;
+  int onesDigit = extractDigit(number, 1);
+  sprintf(numeral, "%s", ones[onesDigit]);
+  return 1;
 }

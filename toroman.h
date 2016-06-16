@@ -6,5 +6,6 @@
 #define _TOROMAN_H
 
 int toRoman(char*numeral, int number);
+int extractDigit(int number, int place);
 
 #endif
