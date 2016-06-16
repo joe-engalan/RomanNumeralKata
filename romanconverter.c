@@ -2,6 +2,7 @@
   romanconverter.c
 */
 #include <stdio.h>
+#include <string.h>
 
 static const char* ones[] = { "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
 static const char* tens[] = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
@@ -11,6 +12,20 @@ static const char* thousands[] = { "", "M", "MM", "MMM" };
 int extractDigit(int number, int place)
 {
   return (number % (10 * place)) / place;
+}
+
+int findPatternInString(const char *string, const char *patterns[])
+{
+  int numPatterns = sizeof(patterns) / sizeof(char*);
+  for(int i = 0; i < numPatterns; ++i)
+  {
+    if(strstr(string, patterns[i]))
+    {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 int toRoman(char* numeral, int number)
