@@ -5,20 +5,20 @@ kata : main.o
 main.o : main.c
 	gcc -c main.c
 
-troman.o : toroman.c toroman.h
-	gcc -c toroman.c
+romanconverter.o : romanconverter.c romanconverter.h
+	gcc -c romanconverter.c
 
-all : clean toroman-test kata
+all : clean romanconverter-test kata
 
-test : toroman-test
-	./toroman-test
+test : romanconverter-test
+	./romanconverter-test
 
-toroman-test : toroman.o toroman-tests.o
-	gcc -Wall -o toroman-test toroman-tests.o toroman.o -lcheck
+romanconverter-test : romanconverter.o romanconverter-tests.o
+	gcc -Wall -o romanconverter-test romanconverter-tests.o romanconverter.o -lcheck
 
-toroman-tests.o : toroman.h toroman-tests.c
-	gcc -c toroman-tests.c
+romanconverter-tests.o : romanconverter.h romanconverter-tests.c
+	gcc -c romanconverter-tests.c
 
 .PHONY : clean
 clean :
-	rm -f toroman-test kata *.o
+	rm -f romanconverter-test kata *.o

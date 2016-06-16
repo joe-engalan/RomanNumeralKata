@@ -1,5 +1,5 @@
 /*
-  toroman.c
+  romanconverter.c
 */
 #include <stdio.h>
 

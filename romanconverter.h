@@ -1,5 +1,5 @@
 /*
-  toroman.h
+  romanconverter.h
 */
 
 #ifndef _TOROMAN_H

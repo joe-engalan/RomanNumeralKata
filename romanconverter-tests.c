@@ -1,9 +1,9 @@
 /*
-toroman-tests.c
+romanconverter-tests.c
 */
 
 #include <check.h>
-#include "toroman.h"
+#include "romanconverter.h"
 
 char numeral[20];
 
