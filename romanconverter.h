@@ -2,10 +2,11 @@
   romanconverter.h
 */
 
-#ifndef _TOROMAN_H
-#define _TOROMAN_H
+#ifndef _ROMANCONVERTER_H
+#define _ROMANCONVERTER_H
 
-int toRoman(char*numeral, int number);
+int toRoman(char *numeral, int number);
+int toNumber(int *number, const char* numeral);
 int extractDigit(int number, int place);
 
 #endif

@@ -6,6 +6,7 @@ romanconverter-tests.c
 #include "romanconverter.h"
 
 char numeral[20];
+int number;
 
 /* TO ROMAN TESTS */
 
@@ -50,19 +51,42 @@ START_TEST(shouldReturnBlankIfNumberIsGreaterThan3999)
 }
 END_TEST
 
+START_TEST(shouldReturnBlankIfNumberIsLessThan0)
+{
+  int status = toRoman(numeral, -1);
+
+  ck_assert_str_eq(numeral, "");
+  ck_assert_int_eq(status, 0);
+}
+END_TEST
+
+/* TO NUMBER TESTS */
+START_TEST(shouldDecipherThousandsPlace)
+{
+    toNumber(&number, "MMM");
+
+    ck_assert_int_eq(number, 3000);
+}
+END_TEST
+
 int main(void)
 {
   Suite *romanConversion = suite_create("RomanConversion");
   TCase *toRoman = tcase_create("ToRoman");
+  TCase *toNumber = tcase_create("ToNumber");
   SRunner *sr = srunner_create(romanConversion);
 
   suite_add_tcase(romanConversion, toRoman);
+  suite_add_tcase(romanConversion, toNumber);
 
   tcase_add_test(toRoman, shouldConvert5);
   tcase_add_test(toRoman, shouldConvert9);
   tcase_add_test(toRoman, shouldConvertTensPlace);
   tcase_add_test(toRoman, shouldInsertBlankForZeroDigits);
   tcase_add_test(toRoman, shouldReturnBlankIfNumberIsGreaterThan3999);
+  tcase_add_test(toRoman, shouldReturnBlankIfNumberIsLessThan0);
+
+  tcase_add_test(toNumber, shouldDecipherThousandsPlace);
 
   srunner_run_all(sr, CK_NORMAL);
   int nf = srunner_ntests_failed(sr);

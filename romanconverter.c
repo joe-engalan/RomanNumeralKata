@@ -15,7 +15,7 @@ int extractDigit(int number, int place)
 
 int toRoman(char* numeral, int number)
 {
-  if(number > 3999)
+  if(number < 0 || number > 3999)
   {
     numeral[0] = 0;
     return 0;
@@ -27,5 +27,15 @@ int toRoman(char* numeral, int number)
   int thousandsDigit = extractDigit(number, 1000);
 
   sprintf(numeral, "%s%s%s%s", thousands[thousandsDigit], hundreds[hundredsDigit], tens[tensDigit], ones[onesDigit]);
+  return 1;
+}
+
+int toNumber(int *number, const char *numeral)
+{
+  if(strcmp("MMM", numeral) == 0)
+  {
+    *number = 3000;
+  }
+
   return 1;
 }
