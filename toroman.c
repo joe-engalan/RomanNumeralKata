@@ -7,7 +7,7 @@ static const char* ones[] = { "", "I", "II", "III", "IV", "V", "VI", "VII", "VII
 
 int extractDigit(int number, int place)
 {
-  return number % (10 * place);
+  return (number % (10 * place)) / place;
 }
 
 int toRoman(char* numeral, int number)
