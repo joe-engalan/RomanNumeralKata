@@ -11,9 +11,19 @@ START_TEST(shouldFindPattern)
 {
   const char* patterns[] = { "aaa", "bbb", "acb" };
   const char* string = "acbaaabbb";
-  int pattern = findPatternInString(string, patterns);
+  int pattern = findPatternInString(string, 3, patterns);
 
   ck_assert_int_ne(pattern, -1);
+}
+END_TEST
+
+START_TEST(shouldFindPatternsInReverseOrder)
+{
+  const char* patterns[] = { "aaa", "bbb", "acb" };
+  const char* string = "acbaaabbb";
+  int pattern = findPatternInString(string, 3, patterns);
+
+  ck_assert_int_eq(pattern, 2);
 }
 END_TEST
 
@@ -26,6 +36,7 @@ int main(void)
   suite_add_tcase(pattern, patternFinding);
 
   tcase_add_test(patternFinding, shouldFindPattern);
+  tcase_add_test(patternFinding, shouldFindPatternsInReverseOrder);
 
   srunner_run_all(sr, CK_NORMAL);
   int nf = srunner_ntests_failed(sr);

@@ -14,10 +14,9 @@ int extractDigit(int number, int place)
   return (number % (10 * place)) / place;
 }
 
-int findPatternInString(const char *string, const char *patterns[])
+int findPatternInString(const char *string, int numPatterns, const char *patterns[])
 {
-  int numPatterns = sizeof(patterns) / sizeof(char*);
-  for(int i = 0; i < numPatterns; ++i)
+  for(int i = numPatterns - 1; i >= 0; --i)
   {
     if(strstr(string, patterns[i]))
     {

@@ -8,6 +8,6 @@
 int toRoman(char *numeral, int number);
 int toNumber(int *number, const char* numeral);
 int extractDigit(int number, int place);
-int findPatternInString(const char* string, const char *patterns[]);
+int findPatternInString(const char* string, int numPatterns, const char *patterns[]);
 
 #endif
