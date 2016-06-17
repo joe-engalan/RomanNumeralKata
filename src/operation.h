@@ -9,5 +9,6 @@ typedef enum _operation
 } OPERATION;
 
 OPERATION getOperation(const char* equation);
+const char* getOperand1(const char* equation);
 
 #endif

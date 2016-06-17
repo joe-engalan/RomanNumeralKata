@@ -34,6 +34,19 @@ START_TEST(shouldRecognizeUnknownOperation)
 }
 END_TEST
 
+START_TEST(shouldGetOperands)
+{
+  char equation[80] = "1 + 2";
+  char* operands[2];
+
+  int numOperands = getOperands(operands, equation);
+
+  ck_assert_int_eq(numOperands, 2);
+  ck_assert_str_eq(operands[0], "1");
+  ck_assert_str_eq(operands[1], "2");
+}
+END_TEST
+
 int main(void)
 {
   Suite *operation = suite_create("Operation");
@@ -45,6 +58,7 @@ int main(void)
   tcase_add_test(operationParsing, shouldRecognizeAddition);
   tcase_add_test(operationParsing, shouldRecognizeSubtraction);
   tcase_add_test(operationParsing, shouldRecognizeUnknownOperation);
+  tcase_add_test(operationParsing, shouldGetOperands);
 
   srunner_run_all(sr, CK_NORMAL);
   int nf = srunner_ntests_failed(sr);

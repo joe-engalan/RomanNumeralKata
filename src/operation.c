@@ -2,7 +2,10 @@
 operation.c
 */
 
+#include <string.h>
+#include <stdlib.h>
 #include "operation.h"
+#include "trim.h"
 
 OPERATION getOperation(const char* equation)
 {
@@ -17,4 +20,25 @@ OPERATION getOperation(const char* equation)
   }
 
   return UNKNOWN;
+}
+
+int getOperands(char* operands[], char* equation)
+{
+  const char* operations = "+-";
+
+  char* operand = trim(strtok(equation, operations));
+  if(operand == 0)
+  {
+    return 0;
+  }
+
+  operands[0] = operand;
+  operand = trim(strtok(0, operations));
+  if(operand == 0)
+  {
+    return 1;
+  }
+
+  operands[1] = operand;
+  return 2;
 }
