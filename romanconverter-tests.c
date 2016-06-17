@@ -69,6 +69,32 @@ START_TEST(shouldDecipherThousandsPlace)
 }
 END_TEST
 
+START_TEST(shouldDeciperHundredsPlace)
+{
+  toNumber(&number, "CD");
+
+  ck_assert_int_eq(number, 400);
+
+}
+END_TEST
+
+START_TEST(shouldDecipherAllPlaces)
+{
+  toNumber(&number, "MCCXLVIII");
+
+  ck_assert_int_eq(number, 1248);
+
+}
+END_TEST
+
+START_TEST(shouldDecipherWithMissingPlaces)
+{
+  toNumber(&number, "CDV");
+
+  ck_assert_int_eq(number, 405);
+}
+END_TEST
+
 int main(void)
 {
   Suite *romanConversion = suite_create("RomanConversion");
@@ -87,6 +113,9 @@ int main(void)
   tcase_add_test(toRoman, shouldReturnBlankIfNumberIsLessThan0);
 
   tcase_add_test(toNumber, shouldDecipherThousandsPlace);
+  tcase_add_test(toNumber, shouldDeciperHundredsPlace);
+  tcase_add_test(toNumber, shouldDecipherAllPlaces);
+  tcase_add_test(toNumber, shouldDecipherWithMissingPlaces);
 
   srunner_run_all(sr, CK_NORMAL);
   int nf = srunner_ntests_failed(sr);

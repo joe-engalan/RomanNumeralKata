@@ -20,11 +20,31 @@ int findPatternInString(const char *string, int numPatterns, const char *pattern
   {
     if(strstr(string, patterns[i]))
     {
+      printf("pattern \"%s\" found in \"%s\" at %d\n", patterns[i], string, i);
       return i;
     }
   }
 
   return -1;
+}
+
+int findPatternInRomanNumeralString(const char* string, int numPatterns, const char* patterns[])
+{
+  // Roman numeral pattern matching gets tricky around the 5
+  // because 4 might also match (eg. "CD" matches "D" and "CD")
+  // If the regular pattern matches 5, also check 4 to see if it's
+  // a match. Return the 4 since it matches more characters
+  int matchedPattern = findPatternInString(string, numPatterns, patterns);
+  if(matchedPattern == 5)
+  {
+    int alternateMatch = findPatternInString(string, 5, patterns);
+    if(alternateMatch > 0)
+    {
+      matchedPattern = alternateMatch;
+    }
+  }
+
+  return matchedPattern;
 }
 
 int toRoman(char* numeral, int number)
@@ -46,10 +66,12 @@ int toRoman(char* numeral, int number)
 
 int toNumber(int *number, const char *numeral)
 {
-  if(strcmp("MMM", numeral) == 0)
-  {
-    *number = 3000;
-  }
+  int thousandsDigit = findPatternInRomanNumeralString(numeral, 4, thousands);
+  int hundredsDigit = findPatternInRomanNumeralString(numeral, 10, hundreds);
+  int tensDigit = findPatternInRomanNumeralString(numeral, 10, tens);
+  int onesDigit = findPatternInRomanNumeralString(numeral, 10, ones);
+
+  *number = (thousandsDigit * 1000) + (hundredsDigit * 100) + (tensDigit * 10) + onesDigit;
 
   return 1;
 }
