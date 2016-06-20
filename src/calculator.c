@@ -4,11 +4,13 @@ calculator.c
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "calculator.h"
 #include "operation.h"
+#include "romanconverter.h"
 
 
-STATUS_TYPE getOperandsFromEquation(int *operands, char* equation)
+STATUS_TYPE getOperandsFromEquation(int *operands, const char* equation)
 {
   if(getOperation(equation) == UNKNOWN)
   {
@@ -16,49 +18,70 @@ STATUS_TYPE getOperandsFromEquation(int *operands, char* equation)
   }
 
   char *operandStrings[2];
-  int numOperands = getOperands(operandStrings, equation);
+  char *tmpEquation = strdup(equation);
+  int numOperands = getOperands(operandStrings, tmpEquation);
   if(numOperands != 2)
   {
+    free(tmpEquation);
     return ERROR_INSUFFICIENT_OPPERANDS;
   }
 
   toNumber(&operands[0], operandStrings[0]);
   toNumber(&operands[1], operandStrings[1]);
+  free(tmpEquation);
   return STATUS_OK;
+}
+
+int performOperation(OPERATION op, int operand1, int operand2)
+{
+  int numberResult = 0;
+  if(op == SUBTRACTION)
+  {
+    printf("Subtracting %d-%d\n", operand1, operand2);
+    numberResult = operand1 - operand2;
+  }
+  else if(op = ADDITION)
+  {
+    printf("Adding %d+%d\n", operand1, operand2);
+    numberResult = operand1 + operand2;
+  }
+  return numberResult;
+}
+
+STATUS_TYPE validateResult(int result)
+{
+  STATUS_TYPE status = STATUS_OK;
+    if(result < 0)
+    {
+      status = ERROR_UNDERFLOW;
+    }
+    else if(result > 3999)
+    {
+      status = ERROR_OVERFLOW;
+    }
+
+    return status;
 }
 
 STATUS_TYPE calculate(char* result, const char* equation)
 {
-  char *tmpEquation = strdup(equation);
   int operands[2];
   int numberResult = 0;
 
-  STATUS_TYPE status = getOperandsFromEquation(operands, tmpEquation);
-  if(status == STATUS_OK)
+  STATUS_TYPE status = getOperandsFromEquation(operands, equation);
+  if(status != STATUS_OK)
   {
-    OPERATION op = getOperation(equation);
-    if(op == SUBTRACTION)
-    {
-      printf("Subtracting %d-%d\n", operands[0], operands[1]);
-      numberResult = operands[0] - operands[1];
-    }
-    else if(op = ADDITION)
-    {
-      printf("Adding %d+%d\n", operands[0], operands[1]);
-      numberResult = operands[0] + operands[1];
-    }
-
+    return status;
   }
 
-  if(numberResult < 0)
+  OPERATION op = getOperation(equation);
+  numberResult = performOperation(op, operands[0], operands[1]);
+  status = validateResult(numberResult);
+  if(status != STATUS_OK)
   {
-    status = ERROR_UNDERFLOW;
-  }
-  else if(numberResult > 3999)
-  {
-    status = ERROR_OVERFLOW;
+    return status;
   }
 
-  free(tmpEquation);
+  toRoman(result, numberResult);
   return status;
 }

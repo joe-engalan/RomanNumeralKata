@@ -51,6 +51,18 @@ START_TEST(shouldFailIfResultIsMoreThan3999)
 }
 END_TEST
 
+START_TEST(shouldCalculateEquation)
+{
+  const char* equation = "MM+M";
+  char result[80];
+
+  STATUS_TYPE status = calculate(result, equation);
+
+  ck_assert_int_eq(status, STATUS_OK);
+  ck_assert_str_eq(result, "MMM");
+}
+END_TEST
+
 int main(void)
 {
   Suite *suite = suite_create("Calculator");
@@ -63,6 +75,7 @@ int main(void)
   tcase_add_test(tcase, shouldFailIfOperandInsufficientOperands);
   tcase_add_test(tcase, shouldFailIfResultIsLessThan0);
   tcase_add_test(tcase, shouldFailIfResultIsMoreThan3999);
+  tcase_add_test(tcase, shouldCalculateEquation);
 
   srunner_run_all(sr, CK_NORMAL);
   int nf = srunner_ntests_failed(sr);
