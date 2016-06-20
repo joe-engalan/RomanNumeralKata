@@ -37,12 +37,12 @@ int performOperation(OPERATION op, int operand1, int operand2)
   int numberResult = 0;
   if(op == SUBTRACTION)
   {
-    printf("Subtracting %d-%d\n", operand1, operand2);
+    // printf("Subtracting %d-%d\n", operand1, operand2);
     numberResult = operand1 - operand2;
   }
   else if(op = ADDITION)
   {
-    printf("Adding %d+%d\n", operand1, operand2);
+    // printf("Adding %d+%d\n", operand1, operand2);
     numberResult = operand1 + operand2;
   }
   return numberResult;

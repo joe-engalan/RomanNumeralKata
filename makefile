@@ -8,10 +8,10 @@ TEST_OBJS = romanconverter-tests.o operation-tests.o \
 	digitextractor-tests.o patternfinder-tests.o \
 	trim-tests.o calculator-tests.o
 
-kata : $(OBJS)
-	gcc -o kata $(OBJS)
+kata : $(OBJS) main.o
+	gcc -o kata main.o $(OBJS)
 
-all : clean romanconverter-test kata
+all : clean test kata
 
 test : $(OBJS) $(TEST_OBJS)
 	gcc -Wall $(CFLAGS) -o romanconverter-test romanconverter-tests.o romanconverter.o -lcheck

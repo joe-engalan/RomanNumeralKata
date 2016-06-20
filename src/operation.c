@@ -26,11 +26,8 @@ int getOperands(char* operands[], char* equation)
 {
   const char* operations = "+-";
 
-  printf("equation: %0x, \"%s\"\n", equation, equation);
-
   char* operand = trim(strtok(equation, operations));
 
-  printf("Operand: %0x, \"%s\"\n", operand, operand);
   if(operand == 0 || strlen(operand) == 0)
   {
     return 0;

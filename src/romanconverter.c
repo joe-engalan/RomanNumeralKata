@@ -20,7 +20,7 @@ int findPatternInString(const char *string, int numPatterns, const char *pattern
   {
     if(strstr(string, patterns[i]))
     {
-      printf("pattern \"%s\" found in \"%s\" at %d\n", patterns[i], string, i);
+//      printf("pattern \"%s\" found in \"%s\" at %d\n", patterns[i], string, i);
       return i;
     }
   }
