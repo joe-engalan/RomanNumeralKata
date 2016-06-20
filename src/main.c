@@ -11,6 +11,7 @@ const char* getError(STATUS_TYPE status)
   else if(status == ERROR_INSUFFICIENT_OPPERANDS) return "Insufficient operands.";
   else if(status == ERROR_UNDERFLOW) return "Invalid result less than 0.";
   else if(status == ERROR_OVERFLOW) return "Invalid result more than 3999.";
+  else if(status == ERROR_INVALID_OPERAND) return "Invalid operand found.";
   else return "Unknown status.";
 }
 
@@ -21,15 +22,16 @@ void main(int argc, char** argv)
   printf("e.g.:\n");
   printf("\tMM + M = MMM\n");
   printf("\tIII - I = II\n");
-  printf("\n");
 
   char equation[80];
   char answer[20];
   while(1)
   {
-    printf("Enter an equation: ");
+    printf("\nEnter an equation: ");
     char* result = fgets(equation, 80, stdin);
-    if(result == 0 || strlen(equation) == 0)
+//    printf("%s %lu", equation, strlen(equation));
+
+    if(result == 0 || strlen(equation) == 1)
     {
       break;
     }

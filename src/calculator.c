@@ -26,8 +26,18 @@ STATUS_TYPE getOperandsFromEquation(int *operands, const char* equation)
     return ERROR_INSUFFICIENT_OPPERANDS;
   }
 
-  toNumber(&operands[0], operandStrings[0]);
-  toNumber(&operands[1], operandStrings[1]);
+  if(toNumber(&operands[0], operandStrings[0]) == 0)
+  {
+    free(tmpEquation);
+    return ERROR_INVALID_OPERAND;
+  }
+
+  if(toNumber(&operands[1], operandStrings[1]) == 0)
+  {
+    free(tmpEquation);
+    return ERROR_INVALID_OPERAND;
+  }
+  
   free(tmpEquation);
   return STATUS_OK;
 }

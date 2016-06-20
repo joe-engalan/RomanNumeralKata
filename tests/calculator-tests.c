@@ -63,6 +63,28 @@ START_TEST(shouldCalculateEquation)
 }
 END_TEST
 
+START_TEST(shouldRecognizeInvalidOperand1)
+{
+  const char* equation = "abc+M";
+  char result[80];
+
+  STATUS_TYPE status = calculate(result, equation);
+
+  ck_assert_int_eq(status, ERROR_INVALID_OPERAND);
+}
+END_TEST
+
+START_TEST(shouldRecognizeInvalidOperand2)
+{
+  const char* equation = "M-abc";
+  char result[80];
+
+  STATUS_TYPE status = calculate(result, equation);
+
+  ck_assert_int_eq(status, ERROR_INVALID_OPERAND);
+}
+END_TEST
+
 int main(void)
 {
   Suite *suite = suite_create("Calculator");
@@ -76,6 +98,8 @@ int main(void)
   tcase_add_test(tcase, shouldFailIfResultIsLessThan0);
   tcase_add_test(tcase, shouldFailIfResultIsMoreThan3999);
   tcase_add_test(tcase, shouldCalculateEquation);
+  tcase_add_test(tcase, shouldRecognizeInvalidOperand1);
+  tcase_add_test(tcase, shouldRecognizeInvalidOperand2);
 
   srunner_run_all(sr, CK_NORMAL);
   int nf = srunner_ntests_failed(sr);

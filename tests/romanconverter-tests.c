@@ -95,6 +95,14 @@ START_TEST(shouldDecipherWithMissingPlaces)
 }
 END_TEST
 
+START_TEST(shouldRecognizeInvalidNumber)
+{
+  int status = toNumber(&number, "abc");
+
+  ck_assert_int_eq(status, 0);
+}
+END_TEST
+
 int main(void)
 {
   Suite *romanConversion = suite_create("RomanConversion");
@@ -116,6 +124,8 @@ int main(void)
   tcase_add_test(toNumber, shouldDeciperHundredsPlace);
   tcase_add_test(toNumber, shouldDecipherAllPlaces);
   tcase_add_test(toNumber, shouldDecipherWithMissingPlaces);
+
+  tcase_add_test(toNumber, shouldRecognizeInvalidNumber);
 
   srunner_run_all(sr, CK_NORMAL);
   int nf = srunner_ntests_failed(sr);

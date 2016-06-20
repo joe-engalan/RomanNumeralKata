@@ -66,6 +66,7 @@ int toRoman(char* numeral, int number)
 
 int toNumber(int *number, const char *numeral)
 {
+  //printf("toNumber %s\n", numeral);
   int thousandsDigit = findPatternInRomanNumeralString(numeral, 4, thousands);
   int hundredsDigit = findPatternInRomanNumeralString(numeral, 10, hundreds);
   int tensDigit = findPatternInRomanNumeralString(numeral, 10, tens);
@@ -73,5 +74,12 @@ int toNumber(int *number, const char *numeral)
 
   *number = (thousandsDigit * 1000) + (hundredsDigit * 100) + (tensDigit * 10) + onesDigit;
 
-  return 1;
+  if(*number == 0 && strlen(numeral) > 0)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
 }
