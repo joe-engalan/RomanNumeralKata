@@ -2,6 +2,9 @@
 trim.c
 */
 
+#include <string.h>
+#include <ctype.h>
+
 char* trimLeading(char* str)
 {
   char* current = str;
