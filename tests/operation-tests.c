@@ -47,6 +47,28 @@ START_TEST(shouldGetOperands)
 }
 END_TEST
 
+START_TEST(shouldFailIfOperand1IsMissing)
+{
+  char equation[80] = "+ 2";
+  char* operands[2];
+
+  int numOperands = getOperands(operands, equation);
+
+  ck_assert_int_eq(numOperands, 1);
+}
+END_TEST
+
+START_TEST(shouldFailIfOperand2IsMissing)
+{
+  char equation[80] = "1 +";
+  char* operands[2];
+
+  int numOperands = getOperands(operands, equation);
+
+  ck_assert_int_eq(numOperands, 1);
+}
+END_TEST
+
 int main(void)
 {
   Suite *operation = suite_create("Operation");
@@ -59,6 +81,8 @@ int main(void)
   tcase_add_test(operationParsing, shouldRecognizeSubtraction);
   tcase_add_test(operationParsing, shouldRecognizeUnknownOperation);
   tcase_add_test(operationParsing, shouldGetOperands);
+  tcase_add_test(operationParsing, shouldFailIfOperand1IsMissing);
+  tcase_add_test(operationParsing, shouldFailIfOperand2IsMissing);
 
   srunner_run_all(sr, CK_NORMAL);
   int nf = srunner_ntests_failed(sr);
