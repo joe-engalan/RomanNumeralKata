@@ -30,3 +30,7 @@ To build the project:
 1) Go to the project root directory which contains "makefile"
 2) Clean the project: make clean
 3) Run tests: make test
+4) Build kata: make all
+
+To run the project:
+./kata
